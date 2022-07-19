@@ -1,0 +1,71 @@
+version: '2'
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    expose:
+      - 2181
+    hostname: "zookeeper"
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - zookeeper
+    expose:
+      - 9092
+    hostname: "kafka"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  compra:
+    image: compra
+    container_name: compra
+    build: .
+    depends_on:
+      - kafka
+    ports:
+      - "5001:5000"
+    hostname: "compra"
+    volumes:
+      - "./servicos/compra:/workdir"
+    command: python3 /workdir/servico.py
+
+  preco:
+    image: preco
+    container_name: preco
+    build: .
+    depends_on:
+      - kafka
+    hostname: "preco"
+    volumes:
+      - "./servicos/preco:/workdir"
+    command: python3 /workdir/servico.py
+
+  confirmacao:
+    image: confirmacao
+    container_name: confirmacao
+    build: .
+    depends_on:
+      - kafka
+    hostname: "confirmacao"
+    volumes:
+      - "./servicos/confirmacao:/workdir"
+    command: python3 /workdir/servico.py
+
+  bilhete:
+    image: bilhete
+    container_name: bilhete
+    build: .
+    depends_on:
+      - kafka
+    hostname: "bilhete"
+    volumes:
+      - "./servicos/bilhete:/workdir"
+    command: python3 /workdir/servico.py

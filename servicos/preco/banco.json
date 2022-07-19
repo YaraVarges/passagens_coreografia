@@ -1,0 +1,49 @@
+{
+    "passagens": [
+        {
+            "id": 1,
+            "destino": "Itabuna x Ilheus",
+            "preco": 45.00
+        },
+        {
+            "id": 2,
+            "destino": "V. Conquista x Porto Seguro",
+            "preco": 50.00
+        },
+        {
+            "id": 3,
+            "destino": "Anagé x Morro de São Paulo",
+            "preco": 60.00
+        },
+        {
+            "id": 4,
+            "destino": "Morro de São Paulo x Chapada Diamantina",
+            "preco": 80.00
+        },
+        {
+            "id": 5,
+            "destino": "Sao Paulo x Curitiba",
+            "preco": 65.00
+        },
+        {
+            "id": 6,
+            "destino": "Espirito Santos x Curitiba",
+            "preco": 65.00
+        },
+        {
+            "id": 7,
+            "destino": "Espirito Santos x Manaus",
+            "preco": 65.00
+        },
+        {
+            "id": 8,
+            "destino": "Pernambunco x Par",
+            "preco": 65.00
+        },
+        {
+            "id": 9,
+            "destino": "Pernambunco x Ituaçu",
+            "preco": 65.00
+        }
+    ]
+}
